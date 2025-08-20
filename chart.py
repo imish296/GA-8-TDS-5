@@ -1,10 +1,9 @@
-# chart.py
-import seaborn as sns
+mport seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-# Generate synthetic data (customer engagement metrics)
+# Generate synthetic data
 np.random.seed(42)
 data = pd.DataFrame({
     'Website_Visits': np.random.randint(50, 200, 100),
@@ -14,18 +13,19 @@ data = pd.DataFrame({
     'Customer_Support_Calls': np.random.randint(1, 30, 100)
 })
 
-# Compute correlation matrix
+# Correlation matrix
 corr = data.corr()
 
-# Set style
+# Seaborn style
 sns.set(style="whitegrid", font_scale=1.1)
 
-# Plot heatmap
-plt.figure(figsize=(6,6))  # 512x512 approx
-heatmap = sns.heatmap(corr, annot=True, cmap="coolwarm", cbar=True, square=True,
-                      linewidths=.5, fmt=".2f", annot_kws={"size":10})
+# Exact 512x512 output
+plt.figure(figsize=(8,8), dpi=64)   # 8in × 64dpi = 512px
+sns.heatmap(corr, annot=True, cmap="coolwarm", cbar=True, square=True,
+            linewidths=.5, fmt=".2f", annot_kws={"size":10})
 
 plt.title("Customer Engagement Correlation Matrix", fontsize=14, pad=12)
 
-# Save as PNG (exact size 512x512)
-plt.savefig("chart.png", dpi=64, bbox_inches="tight")
+# Tight layout but NO bbox_inches
+plt.tight_layout()
+plt.savefig("chart.png", dpi=64)
